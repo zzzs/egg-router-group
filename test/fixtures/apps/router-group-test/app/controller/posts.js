@@ -10,7 +10,7 @@ class ResourcesController extends Controller {
   }
 
   async new() {
-    let path = this.ctx.helper.pathFor('home::new_post', { bar: 'foo' });
+    let path = this.ctx.helper.pathFor('new_home::post', { bar: 'foo' });
     this.ctx.set('h-path', path);
     this.ctx.body = 'post new';
   }
@@ -22,7 +22,7 @@ class ResourcesController extends Controller {
   }
 
   async edit() {
-    let path = this.ctx.helper.pathFor('home::edit_post', { bar: 'foo' });
+    let path = this.ctx.helper.pathFor('edit_home::post', { bar: 'foo' });
     this.ctx.set('h-path', path);
     this.ctx.body = `post edit ${this.ctx.params.id}`;
   }

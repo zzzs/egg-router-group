@@ -165,7 +165,7 @@ describe('test/router-group.test.js', () => {
     it('should GET /pre/api/posts/new', () => {
       return app.httpRequest()
         .get('/pre/api/posts/new')
-        // .expect('h-path', '/pre/api/posts/new?bar=foo')
+        .expect('h-path', '/pre/api/posts/new?bar=foo')
         .expect('h-m1', 'h-m1-value')
         .expect('post new')
         .expect(200);
@@ -183,7 +183,7 @@ describe('test/router-group.test.js', () => {
     it('should GET /pre/api/posts/1/edit', () => {
       return app.httpRequest()
         .get('/pre/api/posts/1/edit')
-        // .expect('h-path', '/pre/api/posts/:id/edit?bar=foo')
+        .expect('h-path', '/pre/api/posts/:id/edit?bar=foo')
         .expect('h-m1', 'h-m1-value')
         .expect('post edit 1')
         .expect(200);
