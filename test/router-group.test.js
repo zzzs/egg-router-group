@@ -22,11 +22,12 @@ describe('test/router-group.test.js', () => {
       .expect(200);
   });
 
-  describe('case:all', () => {
+  describe('case: all', () => {
     it('should GET /pre/test', () => {
       return app.httpRequest()
         .get('/pre/test')
         .expect('h-m1', 'h-m1-value')
+        .expect('h-global', 'h-global-value')
         .expect('h-key', 'value')
         .expect(200);
     });
@@ -35,6 +36,7 @@ describe('test/router-group.test.js', () => {
       return app.httpRequest()
         .post('/pre/test')
         .expect('h-m1', 'h-m1-value')
+        .expect('h-global', 'h-global-value')
         .expect('h-key', 'value')
         .expect(200);
     });
@@ -43,6 +45,7 @@ describe('test/router-group.test.js', () => {
       return app.httpRequest()
         .put('/pre/test')
         .expect('h-m1', 'h-m1-value')
+        .expect('h-global', 'h-global-value')
         .expect('h-key', 'value')
         .expect(200);
     });
@@ -51,6 +54,7 @@ describe('test/router-group.test.js', () => {
       return app.httpRequest()
         .delete('/pre/test')
         .expect('h-m1', 'h-m1-value')
+        .expect('h-global', 'h-global-value')
         .expect('h-key', 'value')
         .expect(200);
     });
@@ -90,45 +94,163 @@ describe('test/router-group.test.js', () => {
         .expect('h-path', '/pre/test2?bar=foo')
         .expect(200);
     });
+
+    it('should GET /pre/get', () => {
+      return app.httpRequest()
+        .get('/pre/get')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: get')
+        .expect(200);
+    });
+
+    it('should POST /pre/post', () => {
+      return app.httpRequest()
+        .post('/pre/post')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: post')
+        .expect(200);
+    });
+
+    it('should PUT /pre/put', () => {
+      return app.httpRequest()
+        .put('/pre/put')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: put')
+        .expect(200);
+    });
+
+    it('should DELETE /pre/delete', () => {
+      return app.httpRequest()
+        .delete('/pre/delete')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: delete')
+        .expect(200);
+    });
+
+    it('should DEL /pre/del', () => {
+      return app.httpRequest()
+        .del('/pre/del')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: del')
+        .expect(200);
+    });
+
+    it('should OPTIONS /pre/options', () => {
+      return app.httpRequest()
+        .options('/pre/options')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: options')
+        .expect(200);
+    });
+
+    it('should PATCH /pre/patch', () => {
+      return app.httpRequest()
+        .patch('/pre/patch')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: patch')
+        .expect(200);
+    });
   });
 
-  // describe('case:prefix', () => {
-  //   it('should GET /test_p1', () => {
-  //     return app.httpRequest()
-  //       .get('/test_p1')
-  //       .expect('h-m1', 'h-m1-value')
-  //       .expect('h-m2', 'h-m2-value')
-  //       .expect('h-key', 'value')
-  //       .expect(200);
-  //   });
+  describe('case: resource', () => {
+    it('should GET /pre/api/posts', () => {
+      return app.httpRequest()
+        .get('/pre/api/posts')
+        .expect('h-path', '/pre/api/posts?bar=foo')
+        .expect('h-m1', 'h-m1-value')
+        .expect('post index')
+        .expect(200);
+    });
 
-  //   it('should POST /test_m2', () => {
-  //     return app.httpRequest()
-  //       .post('/test_m2')
-  //       .expect('h-m1', 'h-m1-value')
-  //       .expect('h-m2', 'h-m2-value')
-  //       .expect('h-key', 'value')
-  //       .expect(200);
-  //   });
+    it('should GET /pre/api/posts/new', () => {
+      return app.httpRequest()
+        .get('/pre/api/posts/new')
+        // .expect('h-path', '/pre/api/posts/new?bar=foo')
+        .expect('h-m1', 'h-m1-value')
+        .expect('post new')
+        .expect(200);
+    });
 
-  //   it('should GET /test_m3', () => {
-  //     return app.httpRequest()
-  //       .get('/test_m3')
-  //       .expect('h-m1', 'h-m1-value')
-  //       .expect('h-key', 'value')
-  //       .expect(200);
-  //   });
+    it('should GET /pre/api/posts/1', () => {
+      return app.httpRequest()
+        .get('/pre/api/posts/1')
+        .expect('h-path', '/pre/api/posts/:id?bar=foo')
+        .expect('h-m1', 'h-m1-value')
+        .expect('post show 1')
+        .expect(200);
+    });
 
-  //   it('should POST /test_m4', () => {
-  //     return app.httpRequest()
-  //       .post('/test_m4')
-  //       .expect('h-m1', 'h-m1-value')
-  //       .expect('h-key', 'value')
-  //       .expect(200);
-  //   });
-  // });
+    it('should GET /pre/api/posts/1/edit', () => {
+      return app.httpRequest()
+        .get('/pre/api/posts/1/edit')
+        // .expect('h-path', '/pre/api/posts/:id/edit?bar=foo')
+        .expect('h-m1', 'h-m1-value')
+        .expect('post edit 1')
+        .expect(200);
+    });
 
-  describe('case:middlename', () => {
+    it('should POST /pre/api/posts', () => {
+      return app.httpRequest()
+        .post('/pre/api/posts')
+        .expect('h-m1', 'h-m1-value')
+        .expect('post create')
+        .expect(200);
+    });
+
+    it('should PUT /pre/api/posts/1', () => {
+      return app.httpRequest()
+        .put('/pre/api/posts/1')
+        .expect('h-m1', 'h-m1-value')
+        .expect('post update 1')
+        .expect(200);
+    });
+
+    it('should DELETE /pre/api/posts/1', () => {
+      return app.httpRequest()
+        .delete('/pre/api/posts/1')
+        .expect('h-m1', 'h-m1-value')
+        .expect('post destroy 1')
+        .expect(200);
+    });
+  });
+
+  describe('case: name', () => {
+    it('should GET /test_n1', () => {
+      return app.httpRequest()
+        .get('/test_n1')
+        .expect('h-path', '/test_n1?bar=foo')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
+    it('should POST /test_m2', () => {
+      return app.httpRequest()
+        .post('/test_n2/123')
+        .expect('h-path', '/test_n2/:id?bar=foo')
+        .expect('h-key', 'value')
+        .expect('h-qid', '123')
+        .expect(200);
+    });
+  });
+
+  describe('case: prefix', () => {
+    it('should GET /pre/test_p1', () => {
+      return app.httpRequest()
+        .get('/pre/test_p1')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
+    it('should POST /pre/test_m2', () => {
+      return app.httpRequest()
+        .post('/pre/test_p2/123')
+        .expect('h-key', 'value')
+        .expect('h-qid', '123')
+        .expect(200);
+    });
+  });
+
+  describe('case: middlename', () => {
     it('should GET /test_m1', () => {
       return app.httpRequest()
         .get('/test_m1')
@@ -165,6 +287,4 @@ describe('test/router-group.test.js', () => {
         .expect(200);
     });
   });
-
-
 });
