@@ -1,6 +1,7 @@
 'use strict';
 
 const mock = require('egg-mock');
+const assert = require('assert');
 
 describe('test/router-group.test.js', () => {
   let app;
@@ -20,6 +21,63 @@ describe('test/router-group.test.js', () => {
       .get('/')
       .expect('hi, routerGroup')
       .expect(200);
+  });
+
+  describe('case: exception', () => {
+    it('name must be string', () => {
+      try {
+        app.router.group({name: /^test\/.*/, prefix: '/pre', middlewares: []}, router => {
+          router.get('/test', app.controller.home.all1);
+        })
+        throw 'another exception';
+      } catch (err) {
+        assert(err.message.includes('name must be string, but got'));
+      }
+    });
+
+    it('prefix must be string', () => {
+      try {
+        app.router.group({name: 'home::', prefix: /^test\/.*/, middlewares: []}, router => {
+          router.get('/test', app.controller.home.all1);
+        })
+        throw 'another exception';
+      } catch (err) {
+        assert(err.message.includes('prefix must be string, but got'));
+      }
+    });
+
+    it('middlewares must be function or array', () => {
+      try {
+        app.router.group({name: 'home::', prefix: '/pre', middlewares: 'hhh'}, router => {
+          router.get('/test', app.controller.home.all1);
+        })
+        throw 'another exception';
+      } catch (err) {
+        assert(err.message.includes('middlewares must be function or array, but got'));
+      }
+    });
+
+    it('router-name must be string', () => {
+      try {
+        app.router.group({name: 'home::', prefix: '/pre'}, router => {
+          router.get(/^test\/.*/, '/test', app.controller.home.all1);
+        })
+        throw 'another exception';
+      } catch (err) {
+        assert(err.message.includes('router-name must be string, but got'));
+      }
+    });
+
+    it('router-path must be string', () => {
+      try {
+        app.router.group({name: 'home::', prefix: '/pre'}, router => {
+          router.get('home::', /^test\/.*/, app.controller.home.all1);
+        })
+        throw 'another exception';
+      } catch (err) {
+        assert(err.message.includes('router-path must be string, but got'));
+      }
+    });
   });
 
   describe('case: all', () => {
@@ -150,6 +208,20 @@ describe('test/router-group.test.js', () => {
         .expect('body: patch')
         .expect(200);
     });
+
+    it('should REDIRECT /pre/redirect', () => {
+      return app.httpRequest()
+        .get('/pre/redirect')
+        .expect(301)
+        .expect('location', '/');
+    });
+
+    it('should REDIRECT /pre/redirect2 to router-name', () => {
+      return app.httpRequest()
+        .get('/pre/redirect2')
+        .expect(302)
+        .expect('location', '/pre/test2');
+    });
   });
 
   describe('case: resource', () => {
@@ -215,6 +287,14 @@ describe('test/router-group.test.js', () => {
   });
 
   describe('case: name', () => {
+    it('should GET /test_n1', () => {
+      return app.httpRequest()
+        .get('/test_n1')
+        .expect('h-path', '/test_n1?bar=foo')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
     it('should GET /test_n1', () => {
       return app.httpRequest()
         .get('/test_n1')

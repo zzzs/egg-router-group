@@ -18,6 +18,8 @@ module.exports = app => {
       router.del('/del', controller.home.del);
       router.options('/options', controller.home.options);
       router.patch('/patch', controller.home.patch);
+      router.redirect('/redirect', '/');
+      router.redirect('/redirect2', 'home::testname', 302);
   });
 
   // resources
