@@ -26,9 +26,9 @@ describe('test/router-group.test.js', () => {
   describe('case: exception', () => {
     it('name must be string', () => {
       try {
-        app.router.group({name: /^test\/.*/, prefix: '/pre', middlewares: []}, router => {
+        app.router.group({ name: /^test\/.*/, prefix: '/pre', middlewares: [] }, router => {
           router.get('/test', app.controller.home.all1);
-        })
+        });
         throw 'another exception';
       } catch (err) {
         assert(err.message.includes('name must be string, but got'));
@@ -37,9 +37,9 @@ describe('test/router-group.test.js', () => {
 
     it('prefix must be string', () => {
       try {
-        app.router.group({name: 'home::', prefix: /^test\/.*/, middlewares: []}, router => {
+        app.router.group({ name: 'home::', prefix: /^test\/.*/, middlewares: [] }, router => {
           router.get('/test', app.controller.home.all1);
-        })
+        });
         throw 'another exception';
       } catch (err) {
         assert(err.message.includes('prefix must be string, but got'));
@@ -48,9 +48,9 @@ describe('test/router-group.test.js', () => {
 
     it('middlewares must be function or array', () => {
       try {
-        app.router.group({name: 'home::', prefix: '/pre', middlewares: 'hhh'}, router => {
+        app.router.group({ name: 'home::', prefix: '/pre', middlewares: 'hhh' }, router => {
           router.get('/test', app.controller.home.all1);
-        })
+        });
         throw 'another exception';
       } catch (err) {
         assert(err.message.includes('middlewares must be function or array, but got'));
@@ -59,9 +59,9 @@ describe('test/router-group.test.js', () => {
 
     it('router-name must be string', () => {
       try {
-        app.router.group({name: 'home::', prefix: '/pre'}, router => {
+        app.router.group({ name: 'home::', prefix: '/pre' }, router => {
           router.get(/^test\/.*/, '/test', app.controller.home.all1);
-        })
+        });
         throw 'another exception';
       } catch (err) {
         assert(err.message.includes('router-name must be string, but got'));
@@ -70,9 +70,9 @@ describe('test/router-group.test.js', () => {
 
     it('router-path must be string', () => {
       try {
-        app.router.group({name: 'home::', prefix: '/pre'}, router => {
+        app.router.group({ name: 'home::', prefix: '/pre' }, router => {
           router.get('home::', /^test\/.*/, app.controller.home.all1);
-        })
+        });
         throw 'another exception';
       } catch (err) {
         assert(err.message.includes('router-path must be string, but got'));

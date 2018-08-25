@@ -6,7 +6,7 @@ class NameController extends Controller {
   async n1() {
     this.ctx.status = 200;
     this.ctx.set('h-key', 'value');
-    let path = this.ctx.helper.pathFor('home::test_n1', { bar: 'foo' });
+    const path = this.ctx.helper.pathFor('home::test_n1', { bar: 'foo' });
     this.ctx.set('h-path', path);
   }
 
@@ -14,7 +14,7 @@ class NameController extends Controller {
     this.ctx.status = 200;
     this.ctx.set('h-qid', this.ctx.params.id);
     this.ctx.set('h-key', 'value');
-    let path = this.ctx.helper.pathFor('home::test_n2', { bar: 'foo' });
+    const path = this.ctx.helper.pathFor('home::test_n2', { bar: 'foo' });
     this.ctx.set('h-path', path);
   }
 }
