@@ -56,7 +56,6 @@ exports.routerGroup = {
 
 ### 基本用法
 
-
 ```js
 // {app_root}/app/router.js
 module.exports = app => {
