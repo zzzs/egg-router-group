@@ -354,6 +354,7 @@ describe('test/router-group.test.js', () => {
       return app.httpRequest()
         .get('/test_m3')
         .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
         .expect('h-key', 'value')
         .expect(200);
     });

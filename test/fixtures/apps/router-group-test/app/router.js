@@ -46,7 +46,7 @@ module.exports = app => {
     router.post('/test_m2/:id', controller.middlew.m2);
   });
   router.group({ middlewares: m1 }, router => {
-    router.get('/test_m3', controller.middlew.m1);
+    router.get('/test_m3', m2, controller.middlew.m1);
     router.post('/test_m4/:id', controller.middlew.m2);
   });
 
