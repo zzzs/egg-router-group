@@ -62,12 +62,13 @@ module.exports = app => {
   const { router, controller, middleware } = app;
   const m1 = middleware.m1();
   const m2 = middleware.m2({ key: 'value' });
+  const m3 = middleware.m3();
 
   router.group({ name: 'home::', prefix: '/pre', middlewares: [ m1, m2 ] }, router => {
-    // router-path: /pre/test
+    // router-path: /pre/test, middlewares: m1, m2
     router.get('/get', controller.home.get);
-    // router-name: home::post, router-path: /pre/post
-    router.post('post', '/post', controller.home.post);
+    // router-name: home::post, router-path: /pre/post, middlewares: m1, m2, m3
+    router.post('post', '/post', m3, controller.home.post);
     
     // others
     router.all('/test', controller.home.all1);

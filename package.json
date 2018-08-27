@@ -1,6 +1,6 @@
 {
   "name": "egg-router-group",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "have the ability to route group operations for eggjs (使eggjs具有路由群组操作的能力)",
   "eggPlugin": {
     "name": "routerGroup"
@@ -44,12 +44,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eggjs/egg-router-group.git"
+    "url": "git+https://github.com/zzzs/egg-router-group.git"
   },
   "bugs": {
-    "url": "https://github.com/eggjs/egg/issues"
+    "url": "https://github.com/zzzs/egg/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-router-group#readme",
+  "homepage": "https://github.com/zzzs/egg-router-group#readme",
   "author": "xl",
   "license": "MIT"
 }
