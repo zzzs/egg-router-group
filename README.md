@@ -133,6 +133,36 @@ module.exports = app => {
   });
 };
 ```
+
+### Advanced Usage
+> 路由子群组，顾名思义，即路由群组内也可以使用路由群组功能，很适用于大型项目，当路由到达一定量级时，也能轻松维护管理。如果你想的话，路由群组可以一直嵌套下去。
+
+
+**注：如果出现设置重复的中间件，该中间件也会被执行多次，这部分自由度还是会开放给用户，不做特殊处理。**
+
+```js
+
+  // {app_root}/app/router.js
+  router.group({ name: 'home1::', prefix: '/pre1', middlewares: m1 }, router => {
+    // router-name: home1::name_g1, router-path: /pre1/test_g1, middlewares: m1, m2
+    router.get('name_g1', '/test_g1', m2, controller.group.g1);
+
+    router.group({ prefix: '/pre2', middlewares: m2 }, router => {
+      // router-path: /pre1/pre2/test_g3, middlewares: m1, m2, m2
+      router.get('/test_g3', m2, controller.group.g1);
+
+      // router-path: /pre1/pre2/test_g4/:id, middlewares: m1, m2
+      router.post('/test_g4/:id', controller.group.g2);
+
+      router.group({ name: 'home2::' }, router => {
+        // router-name: home1::home2::name_g1 router-path: /pre1/pre2/test_g6/:id, middlewares: m1, m2
+        router.post('name_g6', '/test_g6/:id', controller.group.g2);
+        // ...
+      });
+    });
+  });
+```
+
 ## Questions & Suggestions
 
 Please open an issue [here](https://github.com/zzzs/egg-router-group/issues).
