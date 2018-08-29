@@ -67,7 +67,7 @@ module.exports = app => {
   });
 
   router.group({ name: 'home1::', prefix: '/pre1' }, router => {
-    router.group({ prefix: '/pre2', middlewares: [m1] }, router => {
+    router.group({ prefix: '/pre2', middlewares: [ m1 ] }, router => {
       router.get('/test_g7', controller.group.g1);
       router.group({ name: 'home2::', middlewares: m2 }, router => {
         router.get('/test_g8', controller.group.g1);
