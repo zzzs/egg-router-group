@@ -368,4 +368,82 @@ describe('test/router-group.test.js', () => {
         .expect(200);
     });
   });
+
+  describe('case: group', () => {
+    it('should GET /pre1/test_g1', () => {
+      return app.httpRequest()
+        .get('/pre1/test_g1')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
+        .expect('h-key', 'value')
+        .expect('h-path', '/pre1/test_g1?bar=foo')
+        .expect(200);
+    });
+
+    it('should POST /pre1/test_g2', () => {
+      return app.httpRequest()
+        .post('/pre1/test_g2/123')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-key', 'value')
+        .expect('h-qid', '123')
+        .expect(200);
+    });
+
+    it('should GET /pre1/pre2/test_g3', () => {
+      return app.httpRequest()
+        .get('/pre1/pre2/test_g3')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
+    it('should POST /pre1/pre2/test_g4', () => {
+      return app.httpRequest()
+        .post('/pre1/pre2/test_g4/123')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
+        .expect('h-key', 'value')
+        .expect('h-qid', '123')
+        .expect(200);
+    });
+
+    it('should GET /pre1/pre2/test_g5', () => {
+      return app.httpRequest()
+        .get('/pre1/pre2/test_g5')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
+    it('should POST /pre1/pre2/test_g6', () => {
+      return app.httpRequest()
+        .post('/pre1/pre2/test_g6/123')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
+        .expect('h-key', 'value')
+        .expect('h-qid', '123')
+        .expect('h-path', '/pre1/pre2/test_g6/:id?bar=foo')
+        .expect(200);
+    });
+
+    it('should POST /pre1/pre2/test_g7', () => {
+      return app.httpRequest()
+        .get('/pre1/pre2/test_g7')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
+    it('should POST /pre1/pre2/test_g8', () => {
+      return app.httpRequest()
+        .get('/pre1/pre2/test_g8')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+  });
+
 });

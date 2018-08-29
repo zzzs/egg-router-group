@@ -50,4 +50,28 @@ module.exports = app => {
     router.post('/test_m4/:id', controller.middlew.m2);
   });
 
+  // group
+  router.group({ name: 'home1::', prefix: '/pre1', middlewares: m1 }, router => {
+    router.get('name_g1', '/test_g1', m2, controller.group.g1);
+    router.post('/test_g2/:id', controller.group.g2);
+
+    router.group({ prefix: '/pre2', middlewares: m2 }, router => {
+      router.get('/test_g3', m2, controller.group.g1);
+      router.post('/test_g4/:id', controller.group.g2);
+
+      router.group({ name: 'home2::' }, router => {
+        router.get('/test_g5', m2, controller.group.g1);
+        router.post('name_g6', '/test_g6/:id', controller.group.g2);
+      });
+    });
+  });
+
+  router.group({ name: 'home1::', prefix: '/pre1' }, router => {
+    router.group({ prefix: '/pre2', middlewares: [m1] }, router => {
+      router.get('/test_g7', controller.group.g1);
+      router.group({ name: 'home2::', middlewares: m2 }, router => {
+        router.get('/test_g8', controller.group.g1);
+      });
+    });
+  });
 };
