@@ -7,8 +7,12 @@
   },
   "keywords": [
     "egg",
+    "egg-router",
+    "router",
     "eggPlugin",
-    "egg-plugin"
+    "egg-plugin",
+    "javascript",
+    "node"
   ],
   "dependencies": {},
   "devDependencies": {

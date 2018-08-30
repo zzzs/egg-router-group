@@ -155,7 +155,7 @@ module.exports = app => {
       router.post('/test_g4/:id', controller.group.g2);
 
       router.group({ name: 'home2::' }, router => {
-        // router-name: home1::home2::name_g1, router-path: /pre1/pre2/test_g6/:id, middlewares: m1, m2
+        // router-name: home1::home2::name_g6, router-path: /pre1/pre2/test_g6/:id, middlewares: m1, m2
         router.post('name_g6', '/test_g6/:id', controller.group.g2);
         // ...
       });
