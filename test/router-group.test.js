@@ -29,7 +29,7 @@ describe('test/router-group.test.js', () => {
         app.router.group({ name: /^test\/.*/, prefix: '/pre', middlewares: [] }, router => {
           router.get('/test', app.controller.home.all1);
         });
-        throw 'another exception';
+        throw new Error('another exception');
       } catch (err) {
         assert(err.message.includes('name must be string, but got'));
       }
@@ -40,7 +40,7 @@ describe('test/router-group.test.js', () => {
         app.router.group({ name: 'home::', prefix: /^test\/.*/, middlewares: [] }, router => {
           router.get('/test', app.controller.home.all1);
         });
-        throw 'another exception';
+        throw new Error('another exception');
       } catch (err) {
         assert(err.message.includes('prefix must be string, but got'));
       }
@@ -51,7 +51,7 @@ describe('test/router-group.test.js', () => {
         app.router.group({ name: 'home::', prefix: '/pre', middlewares: 'hhh' }, router => {
           router.get('/test', app.controller.home.all1);
         });
-        throw 'another exception';
+        throw new Error('another exception');
       } catch (err) {
         assert(err.message.includes('middlewares must be function or array, but got'));
       }
@@ -62,7 +62,7 @@ describe('test/router-group.test.js', () => {
         app.router.group({ name: 'home::', prefix: '/pre' }, router => {
           router.get(/^test\/.*/, '/test', app.controller.home.all1);
         });
-        throw 'another exception';
+        throw new Error('another exception');
       } catch (err) {
         assert(err.message.includes('router-name must be string, but got'));
       }
@@ -73,7 +73,7 @@ describe('test/router-group.test.js', () => {
         app.router.group({ name: 'home::', prefix: '/pre' }, router => {
           router.get('home::', /^test\/.*/, app.controller.home.all1);
         });
-        throw 'another exception';
+        throw new Error('another exception');
       } catch (err) {
         assert(err.message.includes('router-path must be string, but got'));
       }
