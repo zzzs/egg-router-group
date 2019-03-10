@@ -1,6 +1,6 @@
 {
   "name": "egg-router-group",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "have the ability to route group operations for eggjs (使eggjs具有路由群组操作的能力)",
   "eggPlugin": {
     "name": "routerGroup"
