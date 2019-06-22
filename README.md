@@ -66,10 +66,11 @@ module.exports = app => {
 
   router.group({ name: 'home::', prefix: '/pre', middlewares: [ m1, m2 ] }, router => {
     // router-path: /pre/test, middlewares: m1, m2
-    router.get('/get', controller.home.get);
+    // router-path: /pre/test2, middlewares: m1, m2
+    router.get('/test', controller.home.test).get('/test2', controller.home.test);
     // router-name: home::post, router-path: /pre/post, middlewares: m1, m2, m3
     router.post('post', '/post', m3, controller.home.post);
-    
+
     // others
     router.all('/test', controller.home.all1);
     router.all('testname', '/test2', controller.home.all2);
@@ -85,10 +86,18 @@ module.exports = app => {
   // 设置单个属性
   router.group({ name: 'home::' }, router => {
     // router-path: /test
-    router.get('/get', controller.home.get);
+    router.get('/test', controller.home.test);
     // router-name: home::post, router-path: /post
     router.post('post', '/post', controller.home.post);
   });
+
+  // group 同样支持链式操作
+  router.group({ name: 'home::', prefix: '/pre', middlewares: [ m1, m2 ] }, router => {
+    // router-path: /pre/test, middlewares: m1, m2
+    // router-path: /pre/test2, middlewares: m1, m2 ⚠️这里🈶️group 设置的属性哦
+    router.get('/test', controller.home.test).get('/test2', controller.home.test);
+  })
+    .get('/test3', controller.home.test); // router-path: /test3 ⚠️这里🈚group 设置的属性哦
 };
 ```
 
@@ -152,14 +161,16 @@ module.exports = app => {
       router.get('/test_g3', m2, controller.group.g1);
 
       // router-path: /pre1/pre2/test_g4/:id, middlewares: m1, m2
-      router.post('/test_g4/:id', controller.group.g2);
+      // router-path: /pre1/pre2/test_g4_1/:id, middlewares: m1, m2
+      router.post('/test_g4/:id', controller.group.g2).get('/test_g4_1', controller.group.g2);
 
       router.group({ name: 'home2::' }, router => {
         // router-name: home1::home2::name_g6, router-path: /pre1/pre2/test_g6/:id, middlewares: m1, m2
         router.post('name_g6', '/test_g6/:id', controller.group.g2);
         // ...
       });
-    });
+    })
+      .get('/test_g2_1', controller.group.g1); // router-path: /pre1/test_g2_1, middlewares: m1
   });
 ```
 

@@ -11,7 +11,7 @@ module.exports = app => {
   router.group({ name: 'home::', prefix: '/pre', middlewares: m1 }, router => {
     router.all('/test', controller.home.all1);
     router.all('testname', '/test2', controller.home.all2);
-    router.get('/get', controller.home.get);
+    router.get('/get', controller.home.get).get('/get2', controller.home.get);
     router.post('/post', controller.home.post);
     router.put('/put', controller.home.put);
     router.delete('/delete', controller.home.delete);
@@ -20,7 +20,7 @@ module.exports = app => {
     router.patch('/patch', controller.home.patch);
     router.redirect('/redirect', '/');
     router.redirect('/redirect2', 'home::testname', 302);
-  });
+  }).get('/get3', m2, controller.home.get);
 
   // resources
   // https://eggjs.org/zh-cn/basics/router.html
@@ -60,10 +60,11 @@ module.exports = app => {
       router.post('/test_g4/:id', controller.group.g2);
 
       router.group({ name: 'home2::' }, router => {
-        router.get('/test_g5', m2, controller.group.g1);
+        router.get('/test_g5', m2, controller.group.g1).get('/test_g5_1', controller.group.g1);
         router.post('name_g6', '/test_g6/:id', controller.group.g2);
       });
-    });
+    })
+      .get('/test_g2_1', controller.group.g1);
   });
 
   router.group({ name: 'home1::', prefix: '/pre1' }, router => {

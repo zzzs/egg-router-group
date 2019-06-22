@@ -161,6 +161,22 @@ describe('test/router-group.test.js', () => {
         .expect(200);
     });
 
+    it('should GET /pre/get2', () => {
+      return app.httpRequest()
+        .get('/pre/get2')
+        .expect('h-m1', 'h-m1-value')
+        .expect('body: get')
+        .expect(200);
+    });
+
+    it('should GET /get3', () => {
+      return app.httpRequest()
+        .get('/get3')
+        .expect('h-m2', 'h-m2-value')
+        .expect('body: get')
+        .expect(200);
+    });
+
     it('should POST /pre/post', () => {
       return app.httpRequest()
         .post('/pre/post')
@@ -398,6 +414,14 @@ describe('test/router-group.test.js', () => {
         .expect(200);
     });
 
+    it('should GET /pre1/test_g2_1', () => {
+      return app.httpRequest()
+        .get('/pre1/test_g2_1')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
     it('should POST /pre1/pre2/test_g4', () => {
       return app.httpRequest()
         .post('/pre1/pre2/test_g4/123')
@@ -411,6 +435,15 @@ describe('test/router-group.test.js', () => {
     it('should GET /pre1/pre2/test_g5', () => {
       return app.httpRequest()
         .get('/pre1/pre2/test_g5')
+        .expect('h-m1', 'h-m1-value')
+        .expect('h-m2', 'h-m2-value')
+        .expect('h-key', 'value')
+        .expect(200);
+    });
+
+    it('should GET /pre1/pre2/test_g5_1', () => {
+      return app.httpRequest()
+        .get('/pre1/pre2/test_g5_1')
         .expect('h-m1', 'h-m1-value')
         .expect('h-m2', 'h-m2-value')
         .expect('h-key', 'value')
