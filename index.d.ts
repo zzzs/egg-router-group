@@ -10,7 +10,7 @@ interface RouterGroupOptions {
 type groupFunction = (router: RouterGroup) => void;
 
 interface RouterGroup extends Router {
-  group(options: RouterGroupOptions, cb: groupFunction): RouterGroup;
+  group(options: RouterGroupOptions, cb: groupFunction | undefined = undefined): RouterGroup;
 }
 
 declare module 'egg' {
